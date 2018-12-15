@@ -35,6 +35,11 @@ bool Entity::IsMoving() const
 	return mIsMoving;
 }
 
+bool Entity::IsSolid() const
+{
+	return mIsSolid;
+}
+
 void Entity::SetPosition(sf::Vector2f _position)
 {
 	mPosition = _position;
@@ -65,4 +70,9 @@ void Entity::SetRotation(Rotation _dir)
 void Entity::SetIsMoving(bool _result)
 {
 	mIsMoving = _result;
+}
+
+void Entity::SetIsSolid(bool _result)
+{
+	mIsSolid = _result;
 }

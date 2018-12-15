@@ -22,23 +22,30 @@
     <Text Include="Debug\Zuna Game.log" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game\Entity\Tiles\Background\Bush.h" />
     <ClInclude Include="Game\Entity\Entity.h" />
-    <ClInclude Include="Game\Entity\Tiles\Grass.h" />
+    <ClInclude Include="Game\Entity\Tiles\Background\Grass.h" />
     <ClInclude Include="Game\Entity\Zuna\Zuna.h" />
     <ClInclude Include="Game\GameLogic.h" />
     <ClInclude Include="Game\Utilities\Defines.h" />
+    <ClInclude Include="Game\Entity\Tiles\Solid\Rock.h" />
+    <ClInclude Include="Game\Utilities\MathFunctions.h" />
     <ClInclude Include="Scene\GameScene.h" />
     <ClInclude Include="Game\Entity\Weapons\Spear.h" />
+    <ClInclude Include="Game\Weapon\Weapon.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Game\Entity\Tiles\Background\Bush.cpp" />
     <ClCompile Include="Game\Entity\Entity.cpp" />
-    <ClCompile Include="Game\Entity\Tiles\Grass.cpp" />
+    <ClCompile Include="Game\Entity\Tiles\Background\Grass.cpp" />
     <ClCompile Include="Game\Entity\Zuna\Zuna.cpp" />
     <ClCompile Include="Game\GameLogic.cpp" />
     <ClCompile Include="Game\main.cpp" />
     <ClCompile Include="Game\Utilities\Defines.cpp" />
+    <ClCompile Include="Game\Entity\Tiles\Solid\Rock.cpp" />
     <ClCompile Include="Scene\GameScene.cpp" />
     <ClCompile Include="Game\Entity\Weapons\Spear.cpp" />
+    <ClCompile Include="Game\Weapon\Weapon.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

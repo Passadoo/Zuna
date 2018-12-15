@@ -3,7 +3,11 @@
 
 Grass::Grass()
 {
-	mTexture.loadFromFile("Assets/TestBG.png");
+	SetIsSolid(false);
+
+	//Sprite
+	mTexture.loadFromFile("Assets/Sprites/grass.png");
+	//mTexture.loadFromFile("Assets/TestBG.png");
 	mSprite.setTexture(mTexture);
 }
 

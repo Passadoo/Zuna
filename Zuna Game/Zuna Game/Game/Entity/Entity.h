@@ -16,6 +16,7 @@ public:
 	sf::Vector2f GetSpeed();
 	Rotation GetRotation();
 	bool IsMoving()const;
+	bool IsSolid()const;
 
 	//Set
 	void SetPosition(sf::Vector2f _position);
@@ -24,9 +25,11 @@ public:
 	void SetSpeed(float _x, float _y);
 	void SetRotation(Rotation _dir);
 	void SetIsMoving(bool _result);
+	void SetIsSolid(bool _result);
 
 private:
 	bool mIsMoving = false;
+	bool mIsSolid = false;
 	sf::Vector2f mPosition;
 	sf::Vector2f mSpeed;
 	Rotation mRotation = eDown;

@@ -3,6 +3,9 @@
 
 Zuna::Zuna()
 {
+	SetIsSolid(true);
+
+	//Sprite
 	mDownTexture.loadFromFile("Assets/TestSprite.png");
 	mSprite.setTexture(mDownTexture);
 	mSpear = std::make_unique<Spear>();
@@ -18,8 +21,6 @@ void Zuna::Draw(sf::RenderWindow & window)
 	mSpear->Draw(window);
 	window.draw(mSprite);
 }
-
-#include <iostream>
 
 void Zuna::Update(float dt)
 {
