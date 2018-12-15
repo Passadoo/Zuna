@@ -15,6 +15,7 @@ Zuna::~Zuna()
 
 void Zuna::Draw(sf::RenderWindow & window)
 {
+	mSpear->Draw(window);
 	window.draw(mSprite);
 }
 
@@ -22,17 +23,52 @@ void Zuna::Draw(sf::RenderWindow & window)
 
 void Zuna::Update(float dt)
 {
-	mSpear->UpdatePosition(GetPosition(), GetRotation());
 	ProcessInput(dt);
+	mSpear->Update(dt);
 
 	if(IsMoving())
 	{
 		SetPosition(sf::Vector2f((GetPosition().x) + (GetSpeed().x * mMovementSpeed * dt), (GetPosition().y + (GetSpeed().y * mMovementSpeed * dt))));
 
-		if (fmod(GetPosition().x, Defines::GRID_CELL_SIZE) == 0 && fmod(GetPosition().y, Defines::GRID_CELL_SIZE) == 0)
+		Rotation rot = GetRotation();
+
+		if (rot == eUp)
 		{
-			SetIsMoving(false);
-			SetSpeed(0, 0);
+			if (GetPosition().y <= mPositionToMoveTo)
+			{
+				SetIsMoving(false);
+				SetSpeed(0, 0);
+				SetPosition(GetPosition().x, mPositionToMoveTo);
+			}
+		}
+		else if (rot == eLeft)
+		{
+			if (GetPosition().x <= mPositionToMoveTo)
+			{
+				SetIsMoving(false);
+				SetSpeed(0, 0);
+				SetPosition(mPositionToMoveTo, GetPosition().y);
+			}
+			
+		}
+		else if (rot == eRight)
+		{
+			if (GetPosition().x >= mPositionToMoveTo)
+			{
+				SetIsMoving(false);
+				SetSpeed(0, 0);
+				SetPosition(mPositionToMoveTo, GetPosition().y);
+			}
+			
+		}
+		else if (rot == eDown)
+		{
+			if (GetPosition().y >= mPositionToMoveTo)
+			{
+				SetIsMoving(false);
+				SetSpeed(0, 0);
+				SetPosition(GetPosition().x, mPositionToMoveTo);
+			}
 		}
 	}
 
@@ -42,41 +78,49 @@ void Zuna::Update(float dt)
 
 void Zuna::ProcessInput(float dt)
 {
-	if (!IsMoving())
+	if (!mSpear->IsActive())
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		if (!IsMoving())
 		{
-			SetSpeed(0, -1);
-			SetIsMoving(true);
-			SetRotation(eUp);
-		}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+			{
+				SetSpeed(0, -1);
+				SetIsMoving(true);
+				SetRotation(eUp);
+				mPositionToMoveTo = GetPosition().y - Defines::GRID_CELL_SIZE;
+			}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		{
-			SetSpeed(-1, 0);
-			SetIsMoving(true);
-			SetRotation(eLeft);
-		}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+			{
+				SetSpeed(-1, 0);
+				SetIsMoving(true);
+				SetRotation(eLeft);
+				mPositionToMoveTo = GetPosition().x - Defines::GRID_CELL_SIZE;
+			}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		{
-			SetSpeed(0, 1);
-			SetIsMoving(true);
-			SetRotation(eDown);
-		}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+			{
+				SetSpeed(0, 1);
+				SetIsMoving(true);
+				SetRotation(eDown);
+				mPositionToMoveTo = GetPosition().y + Defines::GRID_CELL_SIZE;
+			}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		{
-			SetSpeed(1, 0);
-			SetIsMoving(true);
-			SetRotation(eRight);
-		}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			{
+				SetSpeed(1, 0);
+				SetIsMoving(true);
+				SetRotation(eRight);
+				mPositionToMoveTo = GetPosition().x + Defines::GRID_CELL_SIZE;
+			}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-		{
-			mSpear->StartAttack();
-		}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			{
+				mSpear->UpdatePosition(GetPosition(), GetRotation());
+				mSpear->StartAttack();
+			}
 
-		SetPosition(sf::Vector2f((GetPosition().x) + (GetSpeed().x * mMovementSpeed * dt), (GetPosition().y + (GetSpeed().y * mMovementSpeed * dt))));
+			SetPosition(sf::Vector2f((GetPosition().x) + (GetSpeed().x * mMovementSpeed * dt), (GetPosition().y + (GetSpeed().y * mMovementSpeed * dt))));
+		}
 	}
 }

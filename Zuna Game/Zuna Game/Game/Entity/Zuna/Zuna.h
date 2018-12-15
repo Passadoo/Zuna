@@ -19,7 +19,8 @@ private:
 	int mMaximumHealth;
 
 	//Movement
-	int mMovementSpeed = 400 / Defines::GRID_CELL_SIZE;
+	int mMovementSpeed = 9000 / Defines::GRID_CELL_SIZE;
+	float mPositionToMoveTo;
 	int mCurrentStamina;
 	int mMaximumStamina;
 

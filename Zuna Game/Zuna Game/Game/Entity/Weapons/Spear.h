@@ -13,6 +13,7 @@ public:
 	//Get
 	bool IsActive();
 	int GetDamage()const;
+	sf::Vector2f GetSpearPosition();
 
 	//Set
 	void SetDamage(int _val);
@@ -23,8 +24,9 @@ private:
 	int mDamage = 5;
 	
 	float mCurrentActiveTime = 0.0f;
-	float mMaxActiveTime = 1.0f;
+	float mMaxActiveTime = 0.3f;
 	bool mIsActive = false;
+	bool mPositionSet = false;
 
 	sf::Sprite mSprite;
 	sf::Texture mTexture;
