@@ -24,12 +24,20 @@ void Zuna::Draw(sf::RenderWindow & window)
 
 void Zuna::Update(float dt)
 {
+	mIsSprinting = false;
 	ProcessInput(dt);
 	mSpear->Update(dt);
 
 	if(IsMoving())
 	{
-		SetPosition(sf::Vector2f((GetPosition().x) + (GetSpeed().x * mMovementSpeed * dt), (GetPosition().y + (GetSpeed().y * mMovementSpeed * dt))));
+		if (mIsSprinting)
+		{
+			SetPosition(sf::Vector2f((GetPosition().x) + (GetSpeed().x * mMovementSpeed * dt * 2), (GetPosition().y + (GetSpeed().y * mMovementSpeed * dt * 2))));
+		}
+		else
+		{
+			SetPosition(sf::Vector2f((GetPosition().x) + (GetSpeed().x * mMovementSpeed * dt), (GetPosition().y + (GetSpeed().y * mMovementSpeed * dt))));
+		}
 
 		Rotation rot = GetRotation();
 
@@ -79,6 +87,11 @@ void Zuna::Update(float dt)
 
 void Zuna::ProcessInput(float dt)
 {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+	{
+		mIsSprinting = true;
+	}
+
 	if (!mSpear->IsActive())
 	{
 		if (!IsMoving())
@@ -121,7 +134,15 @@ void Zuna::ProcessInput(float dt)
 				mSpear->StartAttack();
 			}
 
-			SetPosition(sf::Vector2f((GetPosition().x) + (GetSpeed().x * mMovementSpeed * dt), (GetPosition().y + (GetSpeed().y * mMovementSpeed * dt))));
+			if (mIsSprinting)
+			{
+				SetPosition(sf::Vector2f((GetPosition().x) + (GetSpeed().x * mMovementSpeed * dt * 2), (GetPosition().y + (GetSpeed().y * mMovementSpeed * dt * 2))));
+			}
+			else
+			{
+				SetPosition(sf::Vector2f((GetPosition().x) + (GetSpeed().x * mMovementSpeed * dt), (GetPosition().y + (GetSpeed().y * mMovementSpeed * dt))));
+			}
+			
 		}
 	}
 }
