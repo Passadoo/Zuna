@@ -14,6 +14,7 @@ public:
 	void Update(float dt);
 
 private:
+	std::vector<sf::Vector2f> mTakenPositions;
 	std::vector<std::vector<std::unique_ptr<Grass>>> mDefaultTiles;
 	std::vector <std::unique_ptr<Rock>> mRocks;
 	std::vector<std::unique_ptr<Bush>> mBushes;
