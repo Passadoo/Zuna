@@ -6,8 +6,9 @@ Zuna::Zuna()
 	SetIsSolid(true);
 
 	//Sprite
-	mDownTexture.loadFromFile("Assets/TestSprite.png");
-	mSprite.setTexture(mDownTexture);
+	//mDownTexture.loadFromFile("Assets/TestSprite.png");
+	mTexture.loadFromFile("Assets/TestArrow.png");
+	mSprite.setTexture(mTexture);
 	mWeapon = std::make_shared<Spear>();
 }
 
@@ -18,8 +19,28 @@ Zuna::~Zuna()
 
 void Zuna::Draw(sf::RenderWindow & window)
 {
+	Rotation rot = GetRotation();
+	sf::Transform transform;
+
+	if (rot == eUp)
+	{
+		transform.rotate(0, GetPosition().x + (Defines::GRID_CELL_SIZE / 2), GetPosition().y + (Defines::GRID_CELL_SIZE / 2));
+	}
+	else if (rot == eLeft)
+	{
+		transform.rotate(270, GetPosition().x + (Defines::GRID_CELL_SIZE / 2), GetPosition().y + (Defines::GRID_CELL_SIZE / 2));
+	}
+	else if (rot == eRight)
+	{
+		transform.rotate(90, GetPosition().x + (Defines::GRID_CELL_SIZE / 2), GetPosition().y + (Defines::GRID_CELL_SIZE / 2));
+	}
+	else if (rot == eDown)
+	{
+		transform.rotate(180, GetPosition().x + (Defines::GRID_CELL_SIZE / 2), GetPosition().y + (Defines::GRID_CELL_SIZE / 2));
+	}
+
 	mWeapon->Draw(window);
-	window.draw(mSprite);
+	window.draw(mSprite, transform);
 }
 
 void Zuna::Update(float dt)
@@ -102,7 +123,7 @@ void Zuna::ProcessInput()
 			{
 				SetSpeed(0, -1);
 				SetIsMoving(true);
-				SetRotation(eUp);
+				/*SetRotation(eUp);*/
 				mPositionToMoveTo = GetPosition().y - Defines::GRID_CELL_SIZE;
 			}
 
@@ -110,7 +131,7 @@ void Zuna::ProcessInput()
 			{
 				SetSpeed(-1, 0);
 				SetIsMoving(true);
-				SetRotation(eLeft);
+				/*SetRotation(eLeft);*/
 				mPositionToMoveTo = GetPosition().x - Defines::GRID_CELL_SIZE;
 			}
 
@@ -118,7 +139,7 @@ void Zuna::ProcessInput()
 			{
 				SetSpeed(0, 1);
 				SetIsMoving(true);
-				SetRotation(eDown);
+				/*SetRotation(eDown);*/
 				mPositionToMoveTo = GetPosition().y + Defines::GRID_CELL_SIZE;
 			}
 
@@ -126,15 +147,21 @@ void Zuna::ProcessInput()
 			{
 				SetSpeed(1, 0);
 				SetIsMoving(true);
-				SetRotation(eRight);
+				/*SetRotation(eRight);*/
 				mPositionToMoveTo = GetPosition().x + Defines::GRID_CELL_SIZE;
 			}
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			//{
+			//	spear->SetPositionAndRotation(GetPosition(), GetRotation());
+			//	spear->StartAttack();
+			//}	
+
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
-				spear->SetPositionAndRotation(GetPosition(), GetRotation());
-				spear->StartAttack();
-			}	
+					spear->SetPositionAndRotation(GetPosition(), GetRotation());
+					spear->StartAttack();
+			}
 		}
 	}
 }

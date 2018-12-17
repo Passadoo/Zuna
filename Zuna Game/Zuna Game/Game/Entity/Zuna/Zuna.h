@@ -33,11 +33,6 @@ private:
 	int mRangedDamage;
 	int mCriticalHitChance; 
 
-	sf::Texture mLeftTexture;
-	sf::Texture mRightTexture;
-	sf::Texture mDownTexture;
-	sf::Texture mUpTexture;
+	sf::Texture mTexture;
 	sf::Sprite mSprite;
-
-
 };

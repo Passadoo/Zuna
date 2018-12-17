@@ -13,6 +13,8 @@ public:
 	void Draw(sf::RenderWindow &window);
 	void Update(float dt);
 
+	void ProcessInput(sf::RenderWindow &window);
+
 private:
 	std::vector<sf::Vector2f> mTakenPositions;
 	std::vector<std::vector<std::unique_ptr<Grass>>> mDefaultTiles;

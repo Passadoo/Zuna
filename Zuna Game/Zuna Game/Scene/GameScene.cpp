@@ -108,6 +108,7 @@ void GameScene::Draw(sf::RenderWindow & window)
 
 void GameScene::Update(float dt)
 {
+
 	for (int i = 0; i < mDefaultTiles.size(); i++)
 	{
 		for (int j = 0; j < mDefaultTiles[i].size(); j++)
@@ -126,4 +127,35 @@ void GameScene::Update(float dt)
 	}
 
 	mZuna->Update(dt);
+}
+
+void GameScene::ProcessInput(sf::RenderWindow &window)
+{
+	sf::Vector2i windowPos = sf::Mouse::getPosition(window);
+
+	float xDifference = (float)windowPos.x - (mZuna->GetPosition().x + (Defines::GRID_CELL_SIZE / 2));
+	float yDifference = (float)windowPos.y - (mZuna->GetPosition().y + (Defines::GRID_CELL_SIZE / 2));
+
+	if (abs(xDifference) > abs(yDifference))
+	{
+		if (xDifference > 0.0f)
+		{
+			mZuna->SetRotation(eRight);
+		}
+		else
+		{
+			mZuna->SetRotation(eLeft);
+		}
+	}
+	else
+	{
+		if (yDifference > 0.0f)
+		{
+			mZuna->SetRotation(eDown);
+		}
+		else
+		{
+			mZuna->SetRotation(eUp);
+		}
+	}
 }
