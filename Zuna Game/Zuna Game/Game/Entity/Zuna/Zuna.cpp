@@ -8,7 +8,7 @@ Zuna::Zuna()
 	//Sprite
 	mDownTexture.loadFromFile("Assets/TestSprite.png");
 	mSprite.setTexture(mDownTexture);
-	mSpear = std::make_unique<Spear>();
+	mWeapon = std::make_shared<Spear>();
 }
 
 
@@ -18,15 +18,16 @@ Zuna::~Zuna()
 
 void Zuna::Draw(sf::RenderWindow & window)
 {
-	mSpear->Draw(window);
+	mWeapon->Draw(window);
 	window.draw(mSprite);
 }
 
 void Zuna::Update(float dt)
 {
+	auto spear = std::dynamic_pointer_cast<Spear>(mWeapon);
 	mIsSprinting = false;
-	ProcessInput(dt);
-	mSpear->Update(dt);
+	ProcessInput();
+	spear->Update(dt);
 
 	if(IsMoving())
 	{
@@ -85,14 +86,15 @@ void Zuna::Update(float dt)
 	mSprite.setPosition(Entity::GetPosition());
 }
 
-void Zuna::ProcessInput(float dt)
+void Zuna::ProcessInput()
 {
+	auto spear = std::dynamic_pointer_cast<Spear>(mWeapon);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
 	{
 		mIsSprinting = true;
 	}
 
-	if (!mSpear->IsActive())
+	if (!std::dynamic_pointer_cast<Spear>(spear)->IsActive())
 	{
 		if (!IsMoving())
 		{
@@ -130,19 +132,14 @@ void Zuna::ProcessInput(float dt)
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 			{
-				mSpear->UpdatePosition(GetPosition(), GetRotation());
-				mSpear->StartAttack();
-			}
-
-			if (mIsSprinting)
-			{
-				SetPosition(sf::Vector2f((GetPosition().x) + (GetSpeed().x * mMovementSpeed * dt * 2), (GetPosition().y + (GetSpeed().y * mMovementSpeed * dt * 2))));
-			}
-			else
-			{
-				SetPosition(sf::Vector2f((GetPosition().x) + (GetSpeed().x * mMovementSpeed * dt), (GetPosition().y + (GetSpeed().y * mMovementSpeed * dt))));
-			}
-			
+				spear->SetPositionAndRotation(GetPosition(), GetRotation());
+				spear->StartAttack();
+			}	
 		}
 	}
+}
+
+std::weak_ptr<Weapon> Zuna::GetWeapon()
+{
+	return mWeapon;
 }

@@ -41,8 +41,6 @@ void Spear::Draw(sf::RenderWindow & window)
 	}
 }
 
-#include <iostream>
-
 void Spear::Update(float dt)
 {
 	if (mIsActive)
@@ -80,31 +78,9 @@ void Spear::Update(float dt)
 	}
 }
 
-void Spear::UpdatePosition(sf::Vector2f _pos, Rotation _rot)
-{
-	SetPosition(_pos);
-	SetRotation(_rot);
-}
-
-
-bool Spear::IsActive()
-{
-	return mIsActive;
-}
-
-int Spear::GetDamage()const
-{
-	return mDamage;
-}
-
 sf::Vector2f Spear::GetSpearPosition()
 {
 	return GetPosition();
-}
-
-void Spear::SetDamage(int _val)
-{
-	mDamage = _val;
 }
 
 void Spear::StartAttack()

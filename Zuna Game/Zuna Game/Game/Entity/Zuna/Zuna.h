@@ -1,6 +1,6 @@
 #pragma once
 #include "../../Game/Entity/Entity.h"
-#include "../Weapons/Spear.h"
+#include "../Weapon/Spear.h"
 #include <memory>
 
 class Zuna : public Entity
@@ -10,7 +10,9 @@ public:
 	~Zuna();
 	void Draw(sf::RenderWindow &window);
 	void Update(float dt);
-	void ProcessInput(float dt);
+	void ProcessInput();
+
+	std::weak_ptr<Weapon> GetWeapon();
 
 
 private:
@@ -26,7 +28,7 @@ private:
 	int mMaximumStamina;
 
 	//Damage
-	std::unique_ptr<Spear> mSpear;
+	std::shared_ptr<Weapon> mWeapon;
 	int mMeleeDamage;
 	int mRangedDamage;
 	int mCriticalHitChance; 

@@ -33,12 +33,6 @@
     <ClInclude Include="Game\Entity\Zuna\Zuna.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Entity\Weapons\Spear.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Weapon\Weapon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Utilities\MathFunctions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -49,6 +43,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Entity\Tiles\Background\Bush.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Entity\Weapon\Spear.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Entity\Weapon\Weapon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -71,12 +71,6 @@
     <ClCompile Include="Game\Entity\Zuna\Zuna.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Entity\Weapons\Spear.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Weapon\Weapon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Entity\Tiles\Solid\Rock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -84,6 +78,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game\Entity\Tiles\Background\Bush.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Entity\Weapon\Spear.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Entity\Weapon\Weapon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

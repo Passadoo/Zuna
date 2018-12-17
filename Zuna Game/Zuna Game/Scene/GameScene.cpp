@@ -21,8 +21,7 @@ GameScene::GameScene()
 		bool positionFound = false;
 		while (!positionFound)
 		{
-			std::cout << "while loop" << std::endl;
-			pos = sf::Vector2f((float)Defines::GRID_CELL_SIZE * MathFunctions::RandomIntRange(0, Defines::WORLD_WIDTH), (float)(Defines::GRID_CELL_SIZE * MathFunctions::RandomIntRange(0, Defines::WORLD_HEIGHT)));
+			pos = sf::Vector2f((float)Defines::GRID_CELL_SIZE * MathFunctions::RandomIntRange(0, Defines::WORLD_WIDTH - 1), (float)(Defines::GRID_CELL_SIZE * MathFunctions::RandomIntRange(0, Defines::WORLD_HEIGHT - 1)));
 			
 			if (mTakenPositions.size() == 0)
 			{
@@ -34,10 +33,8 @@ GameScene::GameScene()
 			{
 				for (int i = 0; i < mTakenPositions.size() && !positionFound; i++)
 				{
-					std::cout << "for loop" << std::endl;
 					if (pos != mTakenPositions[i])
 					{
-						std::cout << "If loop" << std::endl;
 						positionFound = true;
 						mRocks.back()->SetPosition(pos);
 						mTakenPositions.push_back(pos);
@@ -50,13 +47,11 @@ GameScene::GameScene()
 	for (int i = 0; i < NUMBER_OF_BUSHES; i++)
 	{
 		mBushes.push_back(std::make_unique<Bush>());
-		mBushes.back()->SetPosition((Defines::GRID_CELL_SIZE * MathFunctions::RandomIntRange(0, Defines::WORLD_WIDTH)), (Defines::GRID_CELL_SIZE * MathFunctions::RandomIntRange(0, Defines::WORLD_HEIGHT)));
-
 		sf::Vector2f pos;
 		bool positionFound = false;
 		while (!positionFound)
 		{
-			pos = sf::Vector2f((float)Defines::GRID_CELL_SIZE * MathFunctions::RandomIntRange(0, Defines::WORLD_WIDTH), (float)(Defines::GRID_CELL_SIZE * MathFunctions::RandomIntRange(0, Defines::WORLD_HEIGHT)));
+			pos = sf::Vector2f((float)Defines::GRID_CELL_SIZE * MathFunctions::RandomIntRange(0, Defines::WORLD_WIDTH -1), (float)(Defines::GRID_CELL_SIZE * MathFunctions::RandomIntRange(0, Defines::WORLD_HEIGHT - 1)));
 
 			if (mTakenPositions.size() == 0)
 			{
