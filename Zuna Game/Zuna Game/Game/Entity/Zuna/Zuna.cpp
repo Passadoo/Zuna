@@ -61,7 +61,7 @@ void Zuna::Update(float dt)
 			SetPosition(sf::Vector2f((GetPosition().x) + (GetSpeed().x * mMovementSpeed * dt), (GetPosition().y + (GetSpeed().y * mMovementSpeed * dt))));
 		}
 
-		Rotation rot = GetRotation();
+		Rotation rot = mMovingDirection;
 
 		if (rot == eUp)
 		{
@@ -123,7 +123,7 @@ void Zuna::ProcessInput()
 			{
 				SetSpeed(0, -1);
 				SetIsMoving(true);
-				/*SetRotation(eUp);*/
+				mMovingDirection = eUp;
 				mPositionToMoveTo = GetPosition().y - Defines::GRID_CELL_SIZE;
 			}
 
@@ -131,7 +131,7 @@ void Zuna::ProcessInput()
 			{
 				SetSpeed(-1, 0);
 				SetIsMoving(true);
-				/*SetRotation(eLeft);*/
+				mMovingDirection = eLeft;
 				mPositionToMoveTo = GetPosition().x - Defines::GRID_CELL_SIZE;
 			}
 
@@ -139,7 +139,7 @@ void Zuna::ProcessInput()
 			{
 				SetSpeed(0, 1);
 				SetIsMoving(true);
-				/*SetRotation(eDown);*/
+				mMovingDirection = eDown;
 				mPositionToMoveTo = GetPosition().y + Defines::GRID_CELL_SIZE;
 			}
 
@@ -147,15 +147,9 @@ void Zuna::ProcessInput()
 			{
 				SetSpeed(1, 0);
 				SetIsMoving(true);
-				/*SetRotation(eRight);*/
+				mMovingDirection = eRight;
 				mPositionToMoveTo = GetPosition().x + Defines::GRID_CELL_SIZE;
 			}
-
-			//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-			//{
-			//	spear->SetPositionAndRotation(GetPosition(), GetRotation());
-			//	spear->StartAttack();
-			//}	
 
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{

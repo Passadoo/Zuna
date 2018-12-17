@@ -23,6 +23,7 @@ private:
 	//Movement
 	int mMovementSpeed = 9000 / Defines::GRID_CELL_SIZE;
 	float mPositionToMoveTo;
+	Rotation mMovingDirection;
 	bool mIsSprinting = false;
 	int mCurrentStamina;
 	int mMaximumStamina;
