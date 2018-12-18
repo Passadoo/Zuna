@@ -20,9 +20,9 @@ sf::Vector2f Entity::GetGridCellPosition() const
 	return sf::Vector2f((mPosition.x / Defines::GRID_CELL_SIZE), (mPosition.y / Defines::GRID_CELL_SIZE));
 }
 
-sf::Vector2f Entity::GetSpeed()
+sf::Vector2f Entity::GetDirection()
 {
-	return mSpeed;
+	return mDirection;
 }
 
 Rotation Entity::GetRotation()
@@ -40,6 +40,11 @@ bool Entity::IsSolid() const
 	return mIsSolid;
 }
 
+bool Entity::IsVisible() const
+{
+	return mIsVisible;
+}
+
 void Entity::SetPosition(sf::Vector2f _position)
 {
 	mPosition = _position;
@@ -51,15 +56,15 @@ void Entity::SetPosition(float _x, float _y)
 	SetPosition(vec);
 }
 
-void Entity::SetSpeed(sf::Vector2f _speed)
+void Entity::SetDirection(sf::Vector2f _speed)
 {
-	mSpeed = _speed;
+	mDirection = _speed;
 }
 
-void Entity::SetSpeed(float _x, float _y)
+void Entity::SetDirection(float _x, float _y)
 {
-	sf::Vector2f speed = sf::Vector2f(_x, _y);
-	SetSpeed(speed);
+	sf::Vector2f direction = sf::Vector2f(_x, _y);
+	SetDirection(direction);
 }
 
 void Entity::SetRotation(Rotation _dir)
@@ -75,4 +80,9 @@ void Entity::SetIsMoving(bool _result)
 void Entity::SetIsSolid(bool _result)
 {
 	mIsSolid = _result;
+}
+
+void Entity::SetIsVisible(bool _result)
+{
+	mIsVisible = _result;
 }

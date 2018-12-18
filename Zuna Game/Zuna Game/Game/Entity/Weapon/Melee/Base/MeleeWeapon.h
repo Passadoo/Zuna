@@ -1,11 +1,11 @@
 #pragma once
-#include "../Entity.h"
+#include "../../Entity.h"
 
-class Weapon : public Entity
+class MeleeWeapon : public Entity
 {
 public:
-	Weapon();
-	~Weapon();
+	MeleeWeapon();
+	~MeleeWeapon();
 	virtual void Draw(sf::RenderWindow &window) = 0;
 	virtual void Update(float dt) = 0;
 
