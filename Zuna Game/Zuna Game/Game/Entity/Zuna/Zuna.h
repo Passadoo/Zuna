@@ -1,6 +1,7 @@
 #pragma once
 #include "../../Game/Entity/Entity.h"
 #include "../Weapon/Melee/Spear.h"
+#include "../Weapon/Ranged/NinjaStarHolder.h"
 #include <memory>
 
 class Zuna : public Entity
@@ -30,6 +31,8 @@ private:
 
 	//Damage
 	std::shared_ptr<MeleeWeapon> mMeleeWeapon;
+	std::shared_ptr<RangedWeapon> mRangedWeapon;
+	bool mMousePressedLastFrame = false;
 
 	sf::Texture mTexture;
 	sf::Sprite mSprite;

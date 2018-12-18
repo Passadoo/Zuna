@@ -1,4 +1,5 @@
 #pragma once
+#include <SFML/Graphics.hpp>
 
 enum Rotation
 {
@@ -11,6 +12,7 @@ enum Rotation
 class Defines
 {
 public:
+
 
 	//Grid
 	static int GRID_CELL_SIZE;

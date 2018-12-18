@@ -60,6 +60,9 @@
     <ClInclude Include="Game\Entity\Weapon\Ranged\NinjaStar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Entity\Weapon\Ranged\NinjaStarHolder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scene\GameScene.cpp">
@@ -102,6 +105,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game\Entity\Weapon\Ranged\NinjaStar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Entity\Weapon\Ranged\NinjaStarHolder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

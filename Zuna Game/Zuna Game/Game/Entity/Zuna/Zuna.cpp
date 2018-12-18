@@ -10,6 +10,7 @@ Zuna::Zuna()
 	mTexture.loadFromFile("Assets/TestArrow.png");
 	mSprite.setTexture(mTexture);
 	mMeleeWeapon = std::make_shared<Spear>();
+	mRangedWeapon = std::make_shared<NinjaStarHolder>();
 }
 
 
@@ -42,6 +43,7 @@ void Zuna::Draw(sf::RenderWindow & window)
 		}
 		window.draw(mSprite, transform);
 		mMeleeWeapon->Draw(window);
+		mRangedWeapon->Draw(window);
 
 	}
 }
@@ -49,9 +51,11 @@ void Zuna::Draw(sf::RenderWindow & window)
 void Zuna::Update(float dt)
 {
 	auto spear = std::dynamic_pointer_cast<Spear>(mMeleeWeapon);
+	auto ninjastars = std::dynamic_pointer_cast<NinjaStarHolder>(mRangedWeapon);
 	mIsSprinting = false;
 	ProcessInput();
 	spear->Update(dt);
+	ninjastars->Update(dt);
 
 	if(IsMoving())
 	{
@@ -113,6 +117,7 @@ void Zuna::Update(float dt)
 void Zuna::ProcessInput()
 {
 	auto spear = std::dynamic_pointer_cast<Spear>(mMeleeWeapon);
+	auto ninjastars = std::dynamic_pointer_cast<NinjaStarHolder>(mRangedWeapon);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
 	{
 		mIsSprinting = true;
@@ -154,13 +159,21 @@ void Zuna::ProcessInput()
 				mPositionToMoveTo = GetPosition().x + Defines::GRID_CELL_SIZE;
 			}
 
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !mMousePressedLastFrame)
 			{
 					spear->SetPositionAndRotation(GetPosition(), GetRotation());
 					spear->StartAttack();
 			}
+
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && !mMousePressedLastFrame)
+			{
+				ninjastars->SetPosition(GetPosition());
+				ninjastars->ShootProjectile(GetRotation());
+			}
+			mMousePressedLastFrame = (sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right));
 		}
 	}
+
 }
 
 std::weak_ptr<MeleeWeapon> Zuna::GetMeleeWeapon()
