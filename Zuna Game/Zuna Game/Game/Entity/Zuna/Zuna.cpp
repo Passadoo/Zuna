@@ -9,7 +9,7 @@ Zuna::Zuna()
 	//mDownTexture.loadFromFile("Assets/TestSprite.png");
 	mTexture.loadFromFile("Assets/TestArrow.png");
 	mSprite.setTexture(mTexture);
-	mWeapon = std::make_shared<Spear>();
+	mMeleeWeapon = std::make_shared<Spear>();
 }
 
 
@@ -19,33 +19,36 @@ Zuna::~Zuna()
 
 void Zuna::Draw(sf::RenderWindow & window)
 {
-	Rotation rot = GetRotation();
-	sf::Transform transform;
+	if (IsVisible())
+	{
+		Rotation rot = GetRotation();
+		sf::Transform transform;
 
-	if (rot == eUp)
-	{
-		transform.rotate(0, GetPosition().x + (Defines::GRID_CELL_SIZE / 2), GetPosition().y + (Defines::GRID_CELL_SIZE / 2));
-	}
-	else if (rot == eLeft)
-	{
-		transform.rotate(270, GetPosition().x + (Defines::GRID_CELL_SIZE / 2), GetPosition().y + (Defines::GRID_CELL_SIZE / 2));
-	}
-	else if (rot == eRight)
-	{
-		transform.rotate(90, GetPosition().x + (Defines::GRID_CELL_SIZE / 2), GetPosition().y + (Defines::GRID_CELL_SIZE / 2));
-	}
-	else if (rot == eDown)
-	{
-		transform.rotate(180, GetPosition().x + (Defines::GRID_CELL_SIZE / 2), GetPosition().y + (Defines::GRID_CELL_SIZE / 2));
-	}
+		if (rot == eUp)
+		{
+			transform.rotate(0, GetPosition().x + (Defines::GRID_CELL_SIZE / 2), GetPosition().y + (Defines::GRID_CELL_SIZE / 2));
+		}
+		else if (rot == eLeft)
+		{
+			transform.rotate(270, GetPosition().x + (Defines::GRID_CELL_SIZE / 2), GetPosition().y + (Defines::GRID_CELL_SIZE / 2));
+		}
+		else if (rot == eRight)
+		{
+			transform.rotate(90, GetPosition().x + (Defines::GRID_CELL_SIZE / 2), GetPosition().y + (Defines::GRID_CELL_SIZE / 2));
+		}
+		else if (rot == eDown)
+		{
+			transform.rotate(180, GetPosition().x + (Defines::GRID_CELL_SIZE / 2), GetPosition().y + (Defines::GRID_CELL_SIZE / 2));
+		}
+		window.draw(mSprite, transform);
+		mMeleeWeapon->Draw(window);
 
-	mWeapon->Draw(window);
-	window.draw(mSprite, transform);
+	}
 }
 
 void Zuna::Update(float dt)
 {
-	auto spear = std::dynamic_pointer_cast<Spear>(mWeapon);
+	auto spear = std::dynamic_pointer_cast<Spear>(mMeleeWeapon);
 	mIsSprinting = false;
 	ProcessInput();
 	spear->Update(dt);
@@ -54,11 +57,11 @@ void Zuna::Update(float dt)
 	{
 		if (mIsSprinting)
 		{
-			SetPosition(sf::Vector2f((GetPosition().x) + (GetSpeed().x * mMovementSpeed * dt * 2), (GetPosition().y + (GetSpeed().y * mMovementSpeed * dt * 2))));
+			SetPosition(sf::Vector2f((GetPosition().x) + (GetDirection().x * mMovementSpeed * dt * 2), (GetPosition().y + (GetDirection().y * mMovementSpeed * dt * 2))));
 		}
 		else
 		{
-			SetPosition(sf::Vector2f((GetPosition().x) + (GetSpeed().x * mMovementSpeed * dt), (GetPosition().y + (GetSpeed().y * mMovementSpeed * dt))));
+			SetPosition(sf::Vector2f((GetPosition().x) + (GetDirection().x * mMovementSpeed * dt), (GetPosition().y + (GetDirection().y * mMovementSpeed * dt))));
 		}
 
 		Rotation rot = mMovingDirection;
@@ -68,7 +71,7 @@ void Zuna::Update(float dt)
 			if (GetPosition().y <= mPositionToMoveTo)
 			{
 				SetIsMoving(false);
-				SetSpeed(0, 0);
+				SetDirection(0, 0);
 				SetPosition(GetPosition().x, mPositionToMoveTo);
 			}
 		}
@@ -77,7 +80,7 @@ void Zuna::Update(float dt)
 			if (GetPosition().x <= mPositionToMoveTo)
 			{
 				SetIsMoving(false);
-				SetSpeed(0, 0);
+				SetDirection(0, 0);
 				SetPosition(mPositionToMoveTo, GetPosition().y);
 			}
 			
@@ -87,7 +90,7 @@ void Zuna::Update(float dt)
 			if (GetPosition().x >= mPositionToMoveTo)
 			{
 				SetIsMoving(false);
-				SetSpeed(0, 0);
+				SetDirection(0, 0);
 				SetPosition(mPositionToMoveTo, GetPosition().y);
 			}
 			
@@ -97,7 +100,7 @@ void Zuna::Update(float dt)
 			if (GetPosition().y >= mPositionToMoveTo)
 			{
 				SetIsMoving(false);
-				SetSpeed(0, 0);
+				SetDirection(0, 0);
 				SetPosition(GetPosition().x, mPositionToMoveTo);
 			}
 		}
@@ -109,7 +112,7 @@ void Zuna::Update(float dt)
 
 void Zuna::ProcessInput()
 {
-	auto spear = std::dynamic_pointer_cast<Spear>(mWeapon);
+	auto spear = std::dynamic_pointer_cast<Spear>(mMeleeWeapon);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
 	{
 		mIsSprinting = true;
@@ -121,7 +124,7 @@ void Zuna::ProcessInput()
 		{
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 			{
-				SetSpeed(0, -1);
+				SetDirection(0, -1);
 				SetIsMoving(true);
 				mMovingDirection = eUp;
 				mPositionToMoveTo = GetPosition().y - Defines::GRID_CELL_SIZE;
@@ -129,7 +132,7 @@ void Zuna::ProcessInput()
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			{
-				SetSpeed(-1, 0);
+				SetDirection(-1, 0);
 				SetIsMoving(true);
 				mMovingDirection = eLeft;
 				mPositionToMoveTo = GetPosition().x - Defines::GRID_CELL_SIZE;
@@ -137,7 +140,7 @@ void Zuna::ProcessInput()
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 			{
-				SetSpeed(0, 1);
+				SetDirection(0, 1);
 				SetIsMoving(true);
 				mMovingDirection = eDown;
 				mPositionToMoveTo = GetPosition().y + Defines::GRID_CELL_SIZE;
@@ -145,7 +148,7 @@ void Zuna::ProcessInput()
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 			{
-				SetSpeed(1, 0);
+				SetDirection(1, 0);
 				SetIsMoving(true);
 				mMovingDirection = eRight;
 				mPositionToMoveTo = GetPosition().x + Defines::GRID_CELL_SIZE;
@@ -160,7 +163,7 @@ void Zuna::ProcessInput()
 	}
 }
 
-std::weak_ptr<Weapon> Zuna::GetWeapon()
+std::weak_ptr<MeleeWeapon> Zuna::GetMeleeWeapon()
 {
-	return mWeapon;
+	return mMeleeWeapon;
 }

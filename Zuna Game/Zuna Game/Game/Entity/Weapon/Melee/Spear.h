@@ -1,7 +1,7 @@
 #pragma once
-#include "Weapon.h"
+#include "Base/MeleeWeapon.h"
 
-class Spear : public Weapon
+class Spear : public MeleeWeapon
 {
 public:
 	Spear();
@@ -21,5 +21,6 @@ private:
 	float mCurrentActiveTime = 0.0f;
 	float mMaxActiveTime = 0.3f;
 	bool mPositionSet = false;
+	int mDamage = 8;
 };
 

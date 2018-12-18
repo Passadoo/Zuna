@@ -30,9 +30,12 @@
     <ClInclude Include="Game\Utilities\Defines.h" />
     <ClInclude Include="Game\Entity\Tiles\Solid\Rock.h" />
     <ClInclude Include="Game\Utilities\MathFunctions.h" />
+    <ClInclude Include="Game\Entity\Weapon\Ranged\Base\RangedWeapon.h" />
+    <ClInclude Include="Game\Entity\Weapon\Ranged\Base\Projectile.h" />
+    <ClInclude Include="Game\Entity\Weapon\Ranged\NinjaStar.h" />
     <ClInclude Include="Scene\GameScene.h" />
-    <ClInclude Include="Game\Entity\Weapon\Spear.h" />
-    <ClInclude Include="Game\Entity\Weapon\Weapon.h" />
+    <ClInclude Include="Game\Entity\Weapon\Melee\Spear.h" />
+    <ClInclude Include="Game\Entity\Weapon\Melee\Base\MeleeWeapon.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\Entity\Tiles\Background\Bush.cpp" />
@@ -43,9 +46,12 @@
     <ClCompile Include="Game\main.cpp" />
     <ClCompile Include="Game\Utilities\Defines.cpp" />
     <ClCompile Include="Game\Entity\Tiles\Solid\Rock.cpp" />
+    <ClCompile Include="Game\Entity\Weapon\Ranged\Base\RangedWeapon.cpp" />
+    <ClCompile Include="Game\Entity\Weapon\Ranged\Base\Projectile.cpp" />
+    <ClCompile Include="Game\Entity\Weapon\Ranged\NinjaStar.cpp" />
     <ClCompile Include="Scene\GameScene.cpp" />
-    <ClCompile Include="Game\Entity\Weapon\Spear.cpp" />
-    <ClCompile Include="Game\Entity\Weapon\Weapon.cpp" />
+    <ClCompile Include="Game\Entity\Weapon\Melee\Spear.cpp" />
+    <ClCompile Include="Game\Entity\Weapon\Melee\Base\MeleeWeapon.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -108,7 +114,7 @@
       <AdditionalIncludeDirectories>C:\Users\salma\Desktop\Github Projects\Zuna\Zuna Game\Zuna Game\SFML-2.5.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\Users\salma\Desktop\Github Projects\Zuna\Zuna Game\Zuna Game\SFML-2.5.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\salma\Desktop\Github Projects\Zuna\Zuna Game\Zuna Game\SFML-2.5.0\lib;C:\Users\salma\Desktop\Github Projects\Zuna\Zuna Game\Zuna Game\SFML-2.5.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-system-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -121,7 +127,7 @@
       <AdditionalIncludeDirectories>C:\Users\salma\Desktop\Github Projects\Zuna\Zuna Game\Zuna Game\SFML-2.5.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\Users\salma\Desktop\Github Projects\Zuna\Zuna Game\Zuna Game\SFML-2.5.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\salma\Desktop\Github Projects\Zuna\Zuna Game\Zuna Game\SFML-2.5.0\lib;C:\Users\salma\Desktop\Github Projects\Zuna\Zuna Game\Zuna Game\SFML-2.5.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-system-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -133,13 +139,13 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\salma\Documents\Visual Studio 2017\Projects\Zuna Game\Zuna Game\SFML-2.5.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\salma\Desktop\Github Projects\Zuna\Zuna Game\Zuna Game\SFML-2.5.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Users\salma\Documents\Visual Studio 2017\Projects\Zuna Game\Zuna Game\SFML-2.5.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system.lib;sfml-graphics.lib;sfml-audio.lib;sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\salma\Desktop\Github Projects\Zuna\Zuna Game\Zuna Game\SFML-2.5.0\lib;C:\Users\salma\Documents\Visual Studio 2017\Projects\Zuna Game\Zuna Game\SFML-2.5.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-audio;sfml-graphics;sfml-window;sfml-system;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -150,13 +156,13 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\salma\Documents\Visual Studio 2017\Projects\Zuna Game\Zuna Game\SFML-2.5.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\salma\Desktop\Github Projects\Zuna\Zuna Game\Zuna Game\SFML-2.5.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Users\salma\Documents\Visual Studio 2017\Projects\Zuna Game\Zuna Game\SFML-2.5.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system.lib;sfml-graphics.lib;sfml-audio.lib;sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\salma\Desktop\Github Projects\Zuna\Zuna Game\Zuna Game\SFML-2.5.0\lib;C:\Users\salma\Documents\Visual Studio 2017\Projects\Zuna Game\Zuna Game\SFML-2.5.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-audio;sfml-graphics;sfml-window;sfml-system;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

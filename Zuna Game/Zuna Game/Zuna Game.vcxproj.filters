@@ -45,10 +45,19 @@
     <ClInclude Include="Game\Entity\Tiles\Background\Bush.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Entity\Weapon\Spear.h">
+    <ClInclude Include="Game\Entity\Weapon\Melee\Spear.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Entity\Weapon\Weapon.h">
+    <ClInclude Include="Game\Entity\Weapon\Ranged\Base\RangedWeapon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Entity\Weapon\Ranged\Base\Projectile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Entity\Weapon\Melee\Base\MeleeWeapon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Entity\Weapon\Ranged\NinjaStar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -80,10 +89,19 @@
     <ClCompile Include="Game\Entity\Tiles\Background\Bush.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Entity\Weapon\Spear.cpp">
+    <ClCompile Include="Game\Entity\Weapon\Melee\Spear.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Entity\Weapon\Weapon.cpp">
+    <ClCompile Include="Game\Entity\Weapon\Ranged\Base\Projectile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Entity\Weapon\Ranged\Base\RangedWeapon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Entity\Weapon\Melee\Base\MeleeWeapon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Entity\Weapon\Ranged\NinjaStar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
