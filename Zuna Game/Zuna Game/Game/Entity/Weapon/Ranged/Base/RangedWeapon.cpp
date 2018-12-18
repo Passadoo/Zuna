@@ -11,7 +11,6 @@ RangedWeapon::~RangedWeapon()
 {
 }
 
-#include <iostream>
 void RangedWeapon::ShootProjectile(Rotation _direction)
 {
 	bool done = false;
@@ -24,11 +23,6 @@ void RangedWeapon::ShootProjectile(Rotation _direction)
 			mProjectiles[i]->SetActive(true);
 			done = true;
 		}
-	}
-
-	if (!done)
-	{
-		std::cout << "Max projectiles active" << std::endl;
 	}
 }
 
