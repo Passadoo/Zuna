@@ -77,6 +77,8 @@ GameScene::GameScene()
 	mZuna = std::make_unique<Zuna>();
 	mZuna->SetPosition((Defines::GRID_CELL_SIZE * (Defines::WORLD_WIDTH / 2)), (Defines::GRID_CELL_SIZE * (Defines::WORLD_HEIGHT / 2)));
 
+	mPopUp = std::make_unique<PopUp>();
+	mPopUp->SetPosition(sf::Vector2f(0, (Defines::GRID_CELL_SIZE * Defines::WORLD_HEIGHT) - 200.0f));
 }
 
 
@@ -104,6 +106,7 @@ void GameScene::Draw(sf::RenderWindow & window)
 	}
 	
 	mZuna->Draw(window);
+	mPopUp->Draw(window);
 }
 
 void GameScene::Update(float dt)
@@ -127,6 +130,7 @@ void GameScene::Update(float dt)
 	}
 
 	mZuna->Update(dt);
+	mPopUp->Update(dt);
 }
 
 void GameScene::ProcessInput(sf::RenderWindow &window)

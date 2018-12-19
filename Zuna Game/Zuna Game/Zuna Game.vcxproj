@@ -34,6 +34,7 @@
     <ClInclude Include="Game\Entity\Weapon\Ranged\Base\Projectile.h" />
     <ClInclude Include="Game\Entity\Weapon\Ranged\NinjaStar.h" />
     <ClInclude Include="Game\Entity\Weapon\Ranged\NinjaStarHolder.h" />
+    <ClInclude Include="Game\PopUp\PopUp.h" />
     <ClInclude Include="Scene\GameScene.h" />
     <ClInclude Include="Game\Entity\Weapon\Melee\Spear.h" />
     <ClInclude Include="Game\Entity\Weapon\Melee\Base\MeleeWeapon.h" />
@@ -51,6 +52,7 @@
     <ClCompile Include="Game\Entity\Weapon\Ranged\Base\Projectile.cpp" />
     <ClCompile Include="Game\Entity\Weapon\Ranged\NinjaStar.cpp" />
     <ClCompile Include="Game\Entity\Weapon\Ranged\NinjaStarHolder.cpp" />
+    <ClCompile Include="Game\PopUp\PopUp.cpp" />
     <ClCompile Include="Scene\GameScene.cpp" />
     <ClCompile Include="Game\Entity\Weapon\Melee\Spear.cpp" />
     <ClCompile Include="Game\Entity\Weapon\Melee\Base\MeleeWeapon.cpp" />

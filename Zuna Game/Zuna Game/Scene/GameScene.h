@@ -5,6 +5,8 @@
 #include "../Game/Entity/Tiles/Background/Grass.h"
 #include "../Game/Entity/Tiles/Background/Bush.h"
 #include "../Game/Entity/Tiles/Solid/Rock.h"
+#include "../Game/PopUp/PopUp.h"
+
 class GameScene
 {
 public:
@@ -21,6 +23,7 @@ private:
 	std::vector <std::unique_ptr<Rock>> mRocks;
 	std::vector<std::unique_ptr<Bush>> mBushes;
 	std::unique_ptr<Zuna> mZuna;
+	std::unique_ptr<PopUp> mPopUp;
 
 	const int NUMBER_OF_ROCKS = 5;
 	const int NUMBER_OF_BUSHES = 5;
