@@ -56,7 +56,7 @@ GameScene::GameScene()
 			if (mTakenPositions.size() == 0)
 			{
 				positionFound = true;
-				mRocks.back()->SetPosition(pos);
+				mBushes.back()->SetPosition(pos);
 				mTakenPositions.push_back(pos);
 			}
 			else
@@ -129,37 +129,76 @@ void GameScene::Update(float dt)
 		mBushes[i]->Update(dt);
 	}
 
-	mZuna->Update(dt);
+	if (!mPopUp->IsCharacterMovementLocked())
+	{
+		bool result = true;
+		if (mZuna->WantsToMove())
+		{
+			for (int i = 0; i < mRocks.size(); i++)
+			{
+				if (mZuna->GetPositionToMoveTo() == mRocks[i]->GetPosition())
+				{
+					result = false;
+				}
+			}
+
+			if (result)
+			{
+				mZuna->SetAllowedToMove(true);
+			}
+		}
+		mZuna->Update(dt);
+	}
+		
 	mPopUp->Update(dt);
 }
 
 void GameScene::ProcessInput(sf::RenderWindow &window)
 {
-	sf::Vector2i windowPos = sf::Mouse::getPosition(window);
-
-	float xDifference = (float)windowPos.x - (mZuna->GetPosition().x + (Defines::GRID_CELL_SIZE / 2));
-	float yDifference = (float)windowPos.y - (mZuna->GetPosition().y + (Defines::GRID_CELL_SIZE / 2));
-
-	if (abs(xDifference) > abs(yDifference))
+	if (!mPopUp->IsCharacterMovementLocked())
 	{
-		if (xDifference > 0.0f)
+		sf::Vector2i windowPos = sf::Mouse::getPosition(window);
+
+		float xDifference = (float)windowPos.x - (mZuna->GetPosition().x + (Defines::GRID_CELL_SIZE / 2));
+		float yDifference = (float)windowPos.y - (mZuna->GetPosition().y + (Defines::GRID_CELL_SIZE / 2));
+
+		if (abs(xDifference) > abs(yDifference))
 		{
-			mZuna->SetRotation(eRight);
+			if (xDifference > 0.0f)
+			{
+				mZuna->SetRotation(eRight);
+			}
+			else
+			{
+				mZuna->SetRotation(eLeft);
+			}
 		}
 		else
 		{
-			mZuna->SetRotation(eLeft);
+			if (yDifference > 0.0f)
+			{
+				mZuna->SetRotation(eDown);
+			}
+			else
+			{
+				mZuna->SetRotation(eUp);
+			}
 		}
 	}
-	else
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::F) && !mWasFPressedLastFrame)
 	{
-		if (yDifference > 0.0f)
+		if (mPopUp->IsTextOpen())
 		{
-			mZuna->SetRotation(eDown);
+			mPopUp->CycleText();
 		}
 		else
 		{
-			mZuna->SetRotation(eUp);
+			mPopUp->OpenText("Assets/Text/Dialogue1.txt", true);
 		}
+
 	}
+	mWasFPressedLastFrame = sf::Keyboard::isKeyPressed(sf::Keyboard::F);
+
+
 }

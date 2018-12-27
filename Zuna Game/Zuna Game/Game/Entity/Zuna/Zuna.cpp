@@ -57,7 +57,7 @@ void Zuna::Update(float dt)
 	spear->Update(dt);
 	ninjastars->Update(dt);
 
-	if(IsMoving())
+	if(mAllowedToMove)
 	{
 		if (mIsSprinting)
 		{
@@ -72,40 +72,47 @@ void Zuna::Update(float dt)
 
 		if (rot == eUp)
 		{
-			if (GetPosition().y <= mPositionToMoveTo)
+			if (GetPosition().y <= mPositionToMoveTo.y)
 			{
 				SetIsMoving(false);
 				SetDirection(0, 0);
-				SetPosition(GetPosition().x, mPositionToMoveTo);
+				SetPosition(mPositionToMoveTo);
+				mWantsToMove = false;
+				mAllowedToMove = false;
 			}
 		}
 		else if (rot == eLeft)
 		{
-			if (GetPosition().x <= mPositionToMoveTo)
+			if (GetPosition().x <= mPositionToMoveTo.x)
 			{
 				SetIsMoving(false);
 				SetDirection(0, 0);
-				SetPosition(mPositionToMoveTo, GetPosition().y);
+				SetPosition(mPositionToMoveTo);
+				mWantsToMove = false;
+				mAllowedToMove = false;
 			}
 			
 		}
 		else if (rot == eRight)
 		{
-			if (GetPosition().x >= mPositionToMoveTo)
+			if (GetPosition().x >= mPositionToMoveTo.x)
 			{
 				SetIsMoving(false);
 				SetDirection(0, 0);
-				SetPosition(mPositionToMoveTo, GetPosition().y);
+				SetPosition(mPositionToMoveTo);
+				mWantsToMove = false;
+				mAllowedToMove = false;
 			}
-			
 		}
 		else if (rot == eDown)
 		{
-			if (GetPosition().y >= mPositionToMoveTo)
+			if (GetPosition().y >= mPositionToMoveTo.y)
 			{
 				SetIsMoving(false);
 				SetDirection(0, 0);
-				SetPosition(GetPosition().x, mPositionToMoveTo);
+				SetPosition(mPositionToMoveTo);
+				mWantsToMove = false;
+				mAllowedToMove = false;
 			}
 		}
 	}
@@ -130,39 +137,39 @@ void Zuna::ProcessInput()
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 			{
 				SetDirection(0, -1);
-				SetIsMoving(true);
 				mMovingDirection = eUp;
-				mPositionToMoveTo = GetPosition().y - Defines::GRID_CELL_SIZE;
+				mPositionToMoveTo = sf::Vector2f(GetPosition().x, GetPosition().y - Defines::GRID_CELL_SIZE);
+				mWantsToMove = true;
 			}
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			{
 				SetDirection(-1, 0);
-				SetIsMoving(true);
 				mMovingDirection = eLeft;
-				mPositionToMoveTo = GetPosition().x - Defines::GRID_CELL_SIZE;
+				mPositionToMoveTo = sf::Vector2f(GetPosition().x - Defines::GRID_CELL_SIZE, GetPosition().y);
+				mWantsToMove = true;
 			}
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 			{
 				SetDirection(0, 1);
-				SetIsMoving(true);
 				mMovingDirection = eDown;
-				mPositionToMoveTo = GetPosition().y + Defines::GRID_CELL_SIZE;
+				mPositionToMoveTo = sf::Vector2f(GetPosition().x, GetPosition().y + Defines::GRID_CELL_SIZE);
+				mWantsToMove = true;
 			}
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 			{
 				SetDirection(1, 0);
-				SetIsMoving(true);
 				mMovingDirection = eRight;
-				mPositionToMoveTo = GetPosition().x + Defines::GRID_CELL_SIZE;
+				mPositionToMoveTo = sf::Vector2f(GetPosition().x + Defines::GRID_CELL_SIZE, GetPosition().y);
+				mWantsToMove = true;
 			}
 
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !mMousePressedLastFrame)
 			{
-					spear->SetPositionAndRotation(GetPosition(), GetRotation());
-					spear->StartAttack();
+				spear->SetPositionAndRotation(GetPosition(), GetRotation());
+				spear->StartAttack();
 			}
 
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && !mMousePressedLastFrame)
@@ -176,7 +183,27 @@ void Zuna::ProcessInput()
 
 }
 
+void Zuna::SetAllowedToMove(bool _result)
+{
+	mAllowedToMove = _result;
+}
+
 std::weak_ptr<MeleeWeapon> Zuna::GetMeleeWeapon()
 {
 	return mMeleeWeapon;
+}
+
+std::weak_ptr<RangedWeapon> Zuna::GetRangedWeapon()
+{
+	return mRangedWeapon;
+}
+
+bool Zuna::WantsToMove() const
+{
+	return mWantsToMove;
+}
+
+sf::Vector2f Zuna::GetPositionToMoveTo() const
+{
+	return mPositionToMoveTo;
 }

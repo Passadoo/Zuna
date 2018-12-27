@@ -25,6 +25,8 @@ private:
 	std::unique_ptr<Zuna> mZuna;
 	std::unique_ptr<PopUp> mPopUp;
 
+	bool mWasFPressedLastFrame = false;
+
 	const int NUMBER_OF_ROCKS = 5;
 	const int NUMBER_OF_BUSHES = 5;
 };

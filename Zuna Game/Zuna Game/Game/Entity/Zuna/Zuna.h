@@ -13,8 +13,14 @@ public:
 	void Update(float dt);
 	void ProcessInput();
 
-	std::weak_ptr<MeleeWeapon> GetMeleeWeapon();
+	void SetAllowedToMove(bool _result);
 
+	std::weak_ptr<MeleeWeapon> GetMeleeWeapon();
+	std::weak_ptr<RangedWeapon> GetRangedWeapon();
+	bool WantsToMove()const;
+	
+
+	sf::Vector2f GetPositionToMoveTo()const;
 
 private:
 	//Health
@@ -23,7 +29,9 @@ private:
 
 	//Movement
 	int mMovementSpeed = 9000 / Defines::GRID_CELL_SIZE;
-	float mPositionToMoveTo;
+	bool mWantsToMove = false;
+	bool mAllowedToMove = false;
+	sf::Vector2f mPositionToMoveTo;
 	Rotation mMovingDirection;
 	bool mIsSprinting = false;
 	int mCurrentStamina;
