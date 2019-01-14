@@ -111,7 +111,7 @@ void GameScene::Draw(sf::RenderWindow & window)
 
 void GameScene::Update(float dt)
 {
-
+	std::cout << "Zuna: " << mZuna->GetGridCellPosition().x << ", " << mZuna->GetGridCellPosition().y << std::endl;
 	for (int i = 0; i < mDefaultTiles.size(); i++)
 	{
 		for (int j = 0; j < mDefaultTiles[i].size(); j++)
@@ -136,6 +136,7 @@ void GameScene::Update(float dt)
 		{
 			for (int i = 0; i < mRocks.size(); i++)
 			{
+				//std::cout << "Zuna: " << mZuna->GetGridCellPosition().x << ", " << mZuna->GetGridCellPosition().y << "| Rock: " << mRocks[i]->GetGridCellPosition().x << ", " << mRocks[i]->GetGridCellPosition().y << std::endl;
 				if (mZuna->GetPositionToMoveTo() == mRocks[i]->GetPosition())
 				{
 					result = false;
@@ -145,6 +146,10 @@ void GameScene::Update(float dt)
 			if (result)
 			{
 				mZuna->SetAllowedToMove(true);
+			}
+			else
+			{
+				mZuna->SetIsMoving(false);
 			}
 		}
 		mZuna->Update(dt);

@@ -48,6 +48,7 @@ void Zuna::Draw(sf::RenderWindow & window)
 	}
 }
 
+#include <iostream>
 void Zuna::Update(float dt)
 {
 	auto spear = std::dynamic_pointer_cast<Spear>(mMeleeWeapon);
@@ -130,7 +131,7 @@ void Zuna::ProcessInput()
 		mIsSprinting = true;
 	}
 
-	if (!std::dynamic_pointer_cast<Spear>(spear)->IsActive())
+	if (!spear->IsActive())
 	{
 		if (!IsMoving())
 		{
@@ -139,6 +140,7 @@ void Zuna::ProcessInput()
 				SetDirection(0, -1);
 				mMovingDirection = eUp;
 				mPositionToMoveTo = sf::Vector2f(GetPosition().x, GetPosition().y - Defines::GRID_CELL_SIZE);
+				SetIsMoving(true);
 				mWantsToMove = true;
 			}
 
@@ -147,6 +149,7 @@ void Zuna::ProcessInput()
 				SetDirection(-1, 0);
 				mMovingDirection = eLeft;
 				mPositionToMoveTo = sf::Vector2f(GetPosition().x - Defines::GRID_CELL_SIZE, GetPosition().y);
+				SetIsMoving(true);
 				mWantsToMove = true;
 			}
 
@@ -155,6 +158,7 @@ void Zuna::ProcessInput()
 				SetDirection(0, 1);
 				mMovingDirection = eDown;
 				mPositionToMoveTo = sf::Vector2f(GetPosition().x, GetPosition().y + Defines::GRID_CELL_SIZE);
+				SetIsMoving(true);
 				mWantsToMove = true;
 			}
 
@@ -163,6 +167,7 @@ void Zuna::ProcessInput()
 				SetDirection(1, 0);
 				mMovingDirection = eRight;
 				mPositionToMoveTo = sf::Vector2f(GetPosition().x + Defines::GRID_CELL_SIZE, GetPosition().y);
+				SetIsMoving(true);
 				mWantsToMove = true;
 			}
 
